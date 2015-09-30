@@ -27,6 +27,7 @@ defmodule MathProblems do
       :- -> [n3, n1, n2]
       _  -> raise "invalid operator #{operator}"
     end
+    #IO.inspect(numbers, char_lists: false)
     [op1, op2, result] = List.replace_at(numbers, blank_postion, @blank_operand)
     [op1, operator, op2, :=, result]
   end
@@ -48,6 +49,12 @@ defmodule MathProblems do
     Enum.map_join(problem, " ", &printable/1)
   end
 
+  def join([]), do: []
+  def join([a]) when is_binary(a), do: ["#{a}"]
+  def join([a, b | tail]) when is_binary(a) and is_binary(b) do
+    ["#{a}\t\t#{b}\n" | join(tail)]
+  end
+
   def process(:help) do
     IO.puts """
     usage: issue [--count count] [--limit limit]
@@ -59,6 +66,7 @@ defmodule MathProblems do
     :random.seed(:os.timestamp)
     get_problems(count, [], limit)
     |> Enum.map(&format/1)
+    |> join
     |> Enum.each(&IO.puts/1)
   end
 
