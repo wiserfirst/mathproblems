@@ -1,4 +1,4 @@
-MathProblems
-============
+Math Problems
+=============
 
-** TODO: Add description **
+CLI tool for generating simple math problems in Elixir. Currently only +/- is supported.
